@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Syrian Lira Converter</title>
+</head>
+<body>
+  <h2>New Syrian Pound Calculator</h2>
+  <input type="number" id="oldAmount" placeholder="Enter old amount">
+  <button onclick="convert()">Convert</button>
+  <p id="result"></p>
+  <script>
+    function convert() {
+      const oldAmount = parseInt(document.getElementById('oldAmount').value);
+      if (isNaN(oldAmount)) {
+        document.getElementById('result').innerHTML = "Please enter a valid number.";
+        return;
+      }
+      const newAmount = Math.floor(oldAmount / 100);
+      let breakdown = '';
+      let remaining = newAmount;
+      const notes = [500, 200, 25];
+      notes.forEach(note => {
+        const count = Math.floor(remaining / note);
+        if (count > 0) {
+          breakdown += `${note} × ${count}<br>`;
+          remaining %= note;
+        }
+      });
+      document.getElementById('result').innerHTML =
+        `Old: ${oldAmount} → New: ${newAmount}<br><br>${breakdown}`;
+    }
+  </script>
+</body>
+</html>
